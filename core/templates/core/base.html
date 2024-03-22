@@ -208,13 +208,11 @@
                     ><i class="fa fa-paper-plane ml-2"></i> Project's View</a
                   >
                 </li>
-                {% comment %}
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                   <a class="nav-link" href="{% url 'register:users'%}"
                     ><i class="fa fa-user ml-2"></i> Users Views</a
                   >
-                </li>
-                {% endcomment %}
+                </li> {% endcomment %}
               </ul>
             </li>
 
@@ -233,8 +231,8 @@
                 ><i class="fa fa-industry"></i> Company</a
               >
               <ul class="nav-dropdown-items">
-                {% if user.is_authenticated %} {% if user.is_staff or
-                user.is_superuser %}
+                {% if user.is_authenticated %} 
+                {% if user.is_staff or user.is_superuser %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'register:new-company'%}"
                     ><i class="fa fa-plus ml-2"></i> New Company</a
@@ -249,8 +247,8 @@
               >
 
               <ul class="nav-dropdown-items">
-                {% if user.is_authenticated %} {% if user.is_staff or
-                user.is_superuser %}
+                {% if user.is_authenticated %} 
+                {% if user.is_staff or user.is_superuser %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'projects:new-project'%}">
                     <i class="fa fa-plus ml-2"></i> New Project
@@ -279,8 +277,7 @@
                 ><i class="fa fa-user"></i> Users</a
               >
               <ul class="nav-dropdown-items">
-                {% if user.is_authenticated %} {% if user.is_staff or
-                user.is_superuser %}
+                {% if user.is_authenticated %} {% if user.is_staff or user.is_superuser %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'register:new-user' %}"
                     ><i class="fa fa-user-plus ml-2"></i> Create New User</a
@@ -615,15 +612,13 @@
       </aside>
     </div>
 
-    {% comment %}
-    <footer class="app-footer">
+    {% comment %} <footer class="app-footer">
       <span
         ><a href="http://coreui.io">Copyright</a> © 2018 | Python Developed by
         Guilherme Luis.</span
       >
       <!--<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>-->
-    </footer>
-    {% endcomment %}
+    </footer> {% endcomment %}
 
     <!-- Bootstrap and necessary plugins -->
     <script src="{% static 'core/vendors/js/jquery.min.js'%}"></script>
