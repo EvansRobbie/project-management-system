@@ -1,0 +1,183 @@
+{% extends 'core/base.html' %} {% load static %} {% block breadcrumb %}
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item">Projects</li>
+<li class="breadcrumb-item active">My tasks</li>
+{% endblock breadcrumb %} {% block content %}
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <strong>Tasks</strong>
+    </div>
+
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Task Name</th>
+            <th>Comment</th>
+            <th>Assigned By</th>
+            <th>Status</th>
+            <th>Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.task_name }}</td>
+            <td class="w-50">{{ task.comment }}</td>
+            <td>{{ task.project.assign.all|join:', ' }}</td>
+            <td>
+              {% if task.status == '1' %}
+              <span class="badge bg-info">Inprogress</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_status' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="status"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1" selected>Inprogress</option>
+                  <option value="2">Stuck</option>
+                  <option value="3">Blocked</option>
+                  <option value="4">Done</option>
+                </select>
+              </form>
+              {% elif task.status == '2' %}
+              <span class="badge bg-danger">Stuck</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_status' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="status"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">Inprogress</option>
+                  <option value="2" selected>Stuck</option>
+                  <option value="3">Blocked</option>
+                  <option value="4">Done</option>
+                </select>
+              </form>
+              {% elif task.status == '3' %}
+              <span class="badge bg-danger">Blocked</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_status' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="status"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">Inprogress</option>
+                  <option value="2">Stuck</option>
+                  <option value="3" selected>Blocked</option>
+                  <option value="4">Done</option>
+                </select>
+              </form>
+              {% elif task.status == '4' %}
+              <span class="badge bg-success">Done</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_status' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="status"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">Inprogress</option>
+                  <option value="2">Stuck</option>
+                  <option value="3">Blocked</option>
+                  <option value="4" selected>Done</option>
+                </select>
+              </form>
+              {% else %}
+              <span class="badge bg-success">Approved</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_status' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="status"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">Inprogress</option>
+                  <option value="2">Stuck</option>
+                  <option value="3">Blocked</option>
+                  <option value="4">Done</option>
+                </select>
+              </form>
+              {% endif %}
+            </td>
+            <td>
+              {% if task.due == '1' %}
+              <span class="badge bg-danger">On due</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_due' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="due"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1" selected>On Due</option>
+                  <option value="2">Overdue</option>
+                  <option value="3">Done</option>
+                </select>
+              </form>
+              {% elif task.due == '2' %}
+              <span class="badge bg-success">Overdue</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_due' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="due"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">On Due</option>
+                  <option value="2" selected>Overdue</option>
+                  <option value="3">Done</option>
+                </select>
+              </form>
+              {% else %}
+              <span class="badge bg-info">Done</span>
+              <form
+                method="post"
+                action="{% url 'projects:update_task_due' task.id %}"
+              >
+                {% csrf_token %}
+                <select
+                  name="due"
+                  class="form-select"
+                  onchange="this.form.submit()"
+                >
+                  <option value="1">On Due</option>
+                  <option value="2">Overdue</option>
+                  <option value="3" selected>Done</option>
+                </select>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
